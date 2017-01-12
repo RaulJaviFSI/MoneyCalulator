@@ -3,19 +3,21 @@ package moneycalculator.control;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
 import moneycalculator.persistence.ExchangeRateLoader;
-import moneycalculator.ui.MoneyDialog;
 import moneycalculator.ui.MoneyDisplay;
+import moneycalculator.ui.MoneyDialogFrom;
+import moneycalculator.ui.MoneyDialogTo;
 
 
 public class CalculateCommand implements Command {
 
-    private final MoneyDialog  moneyDialog;
+    private final MoneyDialogFrom  moneyDialog;
+    private final MoneyDialogTo moneyDialogto;
     private final MoneyDisplay moneyDisplay;
-    private final ExchangeRateLoader loader;    
-    private Currency eur = new Currency("EUR","Euro","€");
+    private final ExchangeRateLoader loader;   
 
-    public CalculateCommand(MoneyDialog moneyDialog, MoneyDisplay moneyDisplay, ExchangeRateLoader loader) {
+    public CalculateCommand(MoneyDialogFrom moneyDialog, MoneyDisplay moneyDisplay, MoneyDialogTo moneyDialogto, ExchangeRateLoader loader) {
         this.moneyDialog = moneyDialog;
+        this.moneyDialogto = moneyDialogto;
         this.moneyDisplay = moneyDisplay;
         this.loader = loader;
     }
@@ -31,11 +33,11 @@ public class CalculateCommand implements Command {
     }
 
     private Money exchange(Money money) {
-        return new Money(money.getAmount() * rateOf(money.getCurrency()), eur);
+        return new Money(money.getAmount() * rateOf(money.getCurrency()), moneyDialogto.get());
     }
 
     private double rateOf(Currency currency) {
-        return loader.load(currency, eur).getAmuont();
+        return loader.load(currency, moneyDialogto.get()).getAmuont();
     }
 
 }

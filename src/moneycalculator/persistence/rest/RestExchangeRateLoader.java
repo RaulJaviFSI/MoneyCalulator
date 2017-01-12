@@ -20,6 +20,7 @@ public class RestExchangeRateLoader implements ExchangeRateLoader{
     }
 
     private double read(String from, String to) throws IOException {
+        if(from.equals(to)) return 1.0;
         String line = read(new URL("http://api.fixer.io/latest?base="+from+"&symbols="+to));
         return Double.parseDouble(line.substring(line.indexOf(to)+5, line.indexOf("}")));
     }

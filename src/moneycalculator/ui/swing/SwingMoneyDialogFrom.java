@@ -13,16 +13,16 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import moneycalculator.model.Currency;
 import moneycalculator.model.Money;
-import moneycalculator.ui.MoneyDialog;
+import moneycalculator.ui.MoneyDialogFrom;
 
 
-public class SwingMoneyDialog extends JPanel implements MoneyDialog{
+public class SwingMoneyDialogFrom extends JPanel implements MoneyDialogFrom{
 
     private String amount;
     private Currency currency;
     private final Currency[] currencies;
         
-    public SwingMoneyDialog(Currency[] currencies) {
+    public SwingMoneyDialogFrom(Currency[] currencies) {
         this.currencies = currencies;
         this.add(amount());
         this.add(currency());

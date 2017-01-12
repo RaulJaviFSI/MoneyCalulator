@@ -11,18 +11,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import moneycalculator.control.Command;
 import moneycalculator.model.Currency;
-import moneycalculator.ui.MoneyDialog;
 import moneycalculator.ui.MoneyDisplay;
-import moneycalculator.ui.swing.SwingMoneyDialog;
+import moneycalculator.ui.swing.SwingMoneyDialogFrom;
+import moneycalculator.ui.swing.SwingMoneyDialogTo;
 import moneycalculator.ui.swing.SwingMoneyDisplay;
+import moneycalculator.ui.MoneyDialogFrom;
+import moneycalculator.ui.MoneyDialogTo;
 
 
 class Mainframe extends JFrame{
 
     private final Currency[] currencies;
     private final Map<String, Command> commands = new HashMap<>();
-    private MoneyDialog moneyDialog;
+    private MoneyDialogFrom moneyDialogFrom;
     private MoneyDisplay moneyDisplay;
+    private MoneyDialogTo moneyDialogTo;
     
     public Mainframe(Currency[] currencies) {
         this.currencies = currencies;
@@ -30,7 +33,8 @@ class Mainframe extends JFrame{
         this.setSize(400, 400);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.add(moneyDialog(), BorderLayout.NORTH);
+        this.add(moneyDialogFrom(), BorderLayout.NORTH);
+        this.add(moneyDialogTo(), BorderLayout.EAST);
         this.add(moneyDisplay(), BorderLayout.CENTER);
         this.add(toolbar(), BorderLayout.SOUTH);
         this.setVisible(true);
@@ -39,9 +43,13 @@ class Mainframe extends JFrame{
     public void add(Command command){
         commands.put(command.name(), command);
     }
+    
+    public MoneyDialogTo getMoneyDialogTo() {
+        return moneyDialogTo;
+    }
 
-    public MoneyDialog getMoneyDialog() {
-        return moneyDialog;
+    public MoneyDialogFrom getMoneyDialogFrom() {
+        return moneyDialogFrom;
     }
 
     public MoneyDisplay getMoneyDisplay() {
@@ -49,10 +57,16 @@ class Mainframe extends JFrame{
     }
     
     
-    private Component moneyDialog() {
-        SwingMoneyDialog dialog = new SwingMoneyDialog(currencies);
-        moneyDialog = dialog;
+    private Component moneyDialogFrom() {
+        SwingMoneyDialogFrom dialog = new SwingMoneyDialogFrom(currencies);
+        moneyDialogFrom = dialog;
         return dialog;
+    }
+    
+    private Component moneyDialogTo() {
+        SwingMoneyDialogTo to = new SwingMoneyDialogTo(currencies);
+        moneyDialogTo = to;
+        return to;
     }
 
     private Component moneyDisplay() {

@@ -13,6 +13,6 @@ public class Main {
         ExchangeRateLoader exchangeRateLoader = new RestExchangeRateLoader();
         
         Mainframe mainframe = new Mainframe(currencyLoader.currencies());
-        mainframe.add(new CalculateCommand(mainframe.getMoneyDialog(), mainframe.getMoneyDisplay(),exchangeRateLoader));
+        mainframe.add(new CalculateCommand(mainframe.getMoneyDialogFrom(), mainframe.getMoneyDisplay(),mainframe.getMoneyDialogTo(),exchangeRateLoader));
     }    
 }
